@@ -2,6 +2,11 @@ package CannabisJacks;
 
 import BaseClass.base;
 import Utility.util;
+import Utility.utilRe;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 public class northBayTest extends base {
@@ -9,11 +14,24 @@ public class northBayTest extends base {
     static String xlsLocation = "/Users/selenium/OneDrive/Price Analysis Files/Cannabis Jacks/NorthBayPriceAuto.xlsx";
 
     @Test
-    public void getProductPrices(){
+    public void getProductPrices() throws InterruptedException {
 
-        util utility = new util(driver, xlsLocation);
+        utilRe utility = new utilRe(driver, xlsLocation);
 
         if(utility.createSheet(xlsLocation) == true){
+
+            //wait init
+            WebDriverWait wait = new WebDriverWait(driver, 15);
+
+            //go to link and note the locator (btn)
+            driver.get("https://bestbangforyourbud.com/");
+            By btn = By.xpath("//span[@aria-hidden='true']");
+
+            // wait for visibility and click
+            WebElement searchElement = wait.until(ExpectedConditions.visibilityOfElementLocated(btn));
+            searchElement.click();
+
+            ////////////////////
 
             // Cannabis Jacks - North Bay ( 1881 Cassells St , North Bay )
             utility.getProductAndPrice(xlsLocation,"https://bestbangforyourbud.com/store/cannabis-jacks-north-bay", "CANNABIS JACKS (1881 Cassells St , North Bay)");

@@ -3,6 +3,10 @@ package NorthernHelm;
 import BaseClass.base;
 import Utility.util;
 import Utility.utilRe;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 public class kingstonTest extends base {
@@ -15,6 +19,19 @@ public class kingstonTest extends base {
         utilRe utility = new utilRe(driver, xlsLocation);
 
         if(utility.createSheet(xlsLocation) == true){
+
+            //wait init
+            WebDriverWait wait = new WebDriverWait(driver, 15);
+
+            //go to link and note the locator (btn)
+            driver.get("https://bestbangforyourbud.com/");
+            By btn = By.xpath("//span[@aria-hidden='true']");
+
+            // wait for visibility and click
+            WebElement searchElement = wait.until(ExpectedConditions.visibilityOfElementLocated(btn));
+            searchElement.click();
+
+            ////////////////////
 
 //            // Northern Helm ( 225 Gore Rd , Kingston )
 //            utility.getProductAndPrice(xlsLocation,"https://bestbangforyourbud.com/store/northern-helm-gore-road", "NORTHERN HELM (225 Gore Rd , Kingston)");

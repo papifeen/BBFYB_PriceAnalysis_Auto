@@ -2,6 +2,11 @@ package NorthernHelm;
 
 import BaseClass.base;
 import Utility.util;
+import Utility.utilRe;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 public class oshawaTest extends base {
@@ -9,12 +14,24 @@ public class oshawaTest extends base {
     static String xlsLocation = "/Users/selenium/OneDrive/Price Analysis Files/Northern Helm/OshawaPriceAuto.xlsx";
 
     @Test
-    public void getProductPrices(){
+    public void getProductPrices() throws InterruptedException {
 
-        util utility = new util(driver, xlsLocation);
+        utilRe utility = new utilRe(driver, xlsLocation);
 
         if(utility.createSheet(xlsLocation) == true){
 
+            //wait init
+            WebDriverWait wait = new WebDriverWait(driver, 15);
+
+            //go to link and note the locator (btn)
+            driver.get("https://bestbangforyourbud.com/");
+            By btn = By.xpath("//span[@aria-hidden='true']");
+
+            // wait for visibility and click
+            WebElement searchElement = wait.until(ExpectedConditions.visibilityOfElementLocated(btn));
+            searchElement.click();
+
+            ////////////////////
             // Northern Helm ( 9 Wentworth St W , Oshawa )
             utility.getProductAndPrice(xlsLocation,"https://bestbangforyourbud.com/store/northern-helm-oshawa", "NORTHERN HELM (9 Wentworth St W , Oshawa)");
             utility.makeEmptyColumn(xlsLocation);
@@ -54,15 +71,6 @@ public class oshawaTest extends base {
             // The 420 Store ( 14 Ontario St , Oshawa )
             utility.getProductAndPrice(xlsLocation,"https://bestbangforyourbud.com/store/the-420-store-oshawa", "THE 420 STORE (14 Ontario St , Oshawa)");
             utility.makeEmptyColumn(xlsLocation);
-
-
-
-
-
-
-
-
-
 
 
         } else {

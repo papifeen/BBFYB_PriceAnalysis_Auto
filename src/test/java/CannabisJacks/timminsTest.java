@@ -2,6 +2,11 @@ package CannabisJacks;
 
 import BaseClass.base;
 import Utility.util;
+import Utility.utilRe;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 public class timminsTest extends base {
@@ -9,11 +14,24 @@ public class timminsTest extends base {
     static String xlsLocation = "/Users/selenium/OneDrive/Price Analysis Files/Cnb Jacks Price Comp Analysis/TimminsPriceAnalysis.xlsx";
 
     @Test
-    public void getProductPrices(){
+    public void getProductPrices() throws InterruptedException {
 
-        util utility = new util(driver, xlsLocation);
+        utilRe utility = new utilRe(driver, xlsLocation);
 
         if(utility.createSheet(xlsLocation) == true){
+
+            //wait init
+            WebDriverWait wait = new WebDriverWait(driver, 15);
+
+            //go to link and note the locator (btn)
+            driver.get("https://bestbangforyourbud.com/");
+            By btn = By.xpath("//span[@aria-hidden='true']");
+
+            // wait for visibility and click
+            WebElement searchElement = wait.until(ExpectedConditions.visibilityOfElementLocated(btn));
+            searchElement.click();
+
+            ////////////////////
 
             // Cannabis Jacks - Timmins ( 1869 Riverside Dr , Timmins )
             utility.getProductAndPrice(xlsLocation,"https://bestbangforyourbud.com/store/cannabis-jacks-timmins-cd14018b-8dc7-4644-99ea-3e6f8609989b", "CANNABIS JACKS (1869 Riverside Dr , Timmins)");

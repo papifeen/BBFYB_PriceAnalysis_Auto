@@ -2,6 +2,11 @@ package NorthernHelm;
 
 import BaseClass.base;
 import Utility.util;
+import Utility.utilRe;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 public class danforthTest extends base {
@@ -9,11 +14,24 @@ public class danforthTest extends base {
     static String xlsLocation = "/Users/selenium/OneDrive/Price Analysis Files/Northern Helm/DanforthPriceAuto.xlsx";
 
     @Test
-    public void getProductPrices(){
+    public void getProductPrices() throws InterruptedException {
 
-        util utility = new util(driver, xlsLocation);
+        utilRe utility = new utilRe(driver, xlsLocation);
 
         if(utility.createSheet(xlsLocation) == true){
+
+            //wait init
+            WebDriverWait wait = new WebDriverWait(driver, 15);
+
+            //go to link and note the locator (btn)
+            driver.get("https://bestbangforyourbud.com/");
+            By btn = By.xpath("//span[@aria-hidden='true']");
+
+            // wait for visibility and click
+            WebElement searchElement = wait.until(ExpectedConditions.visibilityOfElementLocated(btn));
+            searchElement.click();
+
+            ////////////////////
 
 
 //            // Northern Helm Northern Helm ( 1338 Danforth Ave , Toronto )
